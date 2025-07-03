@@ -75,7 +75,7 @@ export default function Home() {
 
   const handleEliminar = (id: number) => {
     if (confirm('¿Seguro que deseas eliminar este registro?')) {
-      personas.filter(p => p.id !== id);
+      setPersonas(personas.filter(p => p.id !== id));
     }
   };
 
@@ -106,6 +106,10 @@ export default function Home() {
             <div key={p.id} className="tarjeta">
               <strong>{p.nombre}</strong> ({p.tipo}) - {p.edad} años - {p.fecha}
               <p>{p.descripcion}</p>
+              <div className="botones">
+                <button onClick={() => handleEditar(p)}>Editar</button>
+                <button onClick={() => handleEliminar(p.id)}>Eliminar</button>
+              </div>
             </div>
           ))
         )}
