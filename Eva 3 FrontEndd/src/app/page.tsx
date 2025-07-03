@@ -46,7 +46,6 @@ export default function Home() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    // Validación básica para campos obligatorios
     if (!formulario.nombre || !formulario.tipo || !formulario.fecha) {
       alert('Por favor completa los campos obligatorios');
       return;
@@ -76,7 +75,7 @@ export default function Home() {
 
   const handleEliminar = (id: number) => {
     if (confirm('¿Seguro que deseas eliminar este registro?')) {
-      setPersonas(personas.filter(p => p.id !== id));
+      personas.filter(p => p.id !== id);
     }
   };
 
@@ -85,45 +84,16 @@ export default function Home() {
       <h1>Gestión de Personas</h1>
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          value={formulario.nombre}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="number"
-          name="edad"
-          placeholder="Edad"
-          value={formulario.edad.toString()}
-          onChange={handleChange}
-        />
-        <select
-          name="tipo"
-          value={formulario.tipo}
-          onChange={handleChange}
-          required
-        >
+        <input type="text" name="nombre" placeholder="Nombre" value={formulario.nombre} onChange={handleChange} required />
+        <input type="number" name="edad" placeholder="Edad" value={formulario.edad.toString()} onChange={handleChange} />
+        <select name="tipo" value={formulario.tipo} onChange={handleChange} required>
           <option value="">Selecciona tipo</option>
           <option value="Evento">Evento</option>
           <option value="Beneficiario">Beneficiario</option>
           <option value="Voluntario">Voluntario</option>
         </select>
-        <textarea
-          name="descripcion"
-          placeholder="Descripción"
-          value={formulario.descripcion}
-          onChange={handleChange}
-        />
-        <input
-          type="date"
-          name="fecha"
-          value={formulario.fecha}
-          onChange={handleChange}
-          required
-        />
+        <textarea name="descripcion" placeholder="Descripción" value={formulario.descripcion} onChange={handleChange} />
+        <input type="date" name="fecha" value={formulario.fecha} onChange={handleChange} required />
         <button type="submit">{editando ? 'Actualizar' : 'Agregar'}</button>
       </form>
 
@@ -136,10 +106,6 @@ export default function Home() {
             <div key={p.id} className="tarjeta">
               <strong>{p.nombre}</strong> ({p.tipo}) - {p.edad} años - {p.fecha}
               <p>{p.descripcion}</p>
-              <div className="botones">
-                <button onClick={() => handleEditar(p)}>Editar</button>
-                <button onClick={() => handleEliminar(p.id)}>Eliminar</button>
-              </div>
             </div>
           ))
         )}
