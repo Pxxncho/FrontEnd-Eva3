@@ -46,8 +46,16 @@ export default function Home() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!formulario.nombre || !formulario.tipo || !formulario.fecha) {
-      alert('Por favor completa los campos obligatorios');
+    if (!formulario.nombre.trim()) {
+      alert('El campo nombre es obligatorio.');
+      return;
+    }
+    if (!formulario.tipo.trim()) {
+      alert('Debes seleccionar un tipo válido.');
+      return;
+    }
+    if (!formulario.fecha.trim()) {
+      alert('La fecha es requerida.');
       return;
     }
 
@@ -117,3 +125,4 @@ export default function Home() {
     </div>
   );
 }
+
