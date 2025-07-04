@@ -36,26 +36,21 @@ export default function Home() {
     localStorage.setItem('personas', JSON.stringify(personas));
   }, [personas]);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
+      [e.target.name]:
+        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
     });
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!formulario.nombre.trim()) {
-      alert('El campo nombre es obligatorio.');
-      return;
-    }
-    if (!formulario.tipo.trim()) {
-      alert('Debes seleccionar un tipo válido.');
-      return;
-    }
-    if (!formulario.fecha.trim()) {
-      alert('La fecha es requerida.');
+    if (!formulario.nombre || !formulario.tipo || !formulario.fecha) {
+      alert('Por favor completa los campos obligatorios');
       return;
     }
 
@@ -92,16 +87,45 @@ export default function Home() {
       <h1>Gestión de Personas</h1>
 
       <form onSubmit={handleSubmit}>
-        <input type="text" name="nombre" placeholder="Nombre" value={formulario.nombre} onChange={handleChange} required />
-        <input type="number" name="edad" placeholder="Edad" value={formulario.edad.toString()} onChange={handleChange} />
-        <select name="tipo" value={formulario.tipo} onChange={handleChange} required>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={formulario.nombre}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="number"
+          name="edad"
+          placeholder="Edad"
+          value={formulario.edad.toString()}
+          onChange={handleChange}
+        />
+        <select
+          name="tipo"
+          value={formulario.tipo}
+          onChange={handleChange}
+          required
+        >
           <option value="">Selecciona tipo</option>
           <option value="Evento">Evento</option>
           <option value="Beneficiario">Beneficiario</option>
           <option value="Voluntario">Voluntario</option>
         </select>
-        <textarea name="descripcion" placeholder="Descripción" value={formulario.descripcion} onChange={handleChange} />
-        <input type="date" name="fecha" value={formulario.fecha} onChange={handleChange} required />
+        <textarea
+          name="descripcion"
+          placeholder="Descripción"
+          value={formulario.descripcion}
+          onChange={handleChange}
+        />
+        <input
+          type="date"
+          name="fecha"
+          value={formulario.fecha}
+          onChange={handleChange}
+          required
+        />
         <button type="submit">{editando ? 'Actualizar' : 'Agregar'}</button>
       </form>
 
@@ -110,7 +134,7 @@ export default function Home() {
         {personas.length === 0 ? (
           <p>No hay registros</p>
         ) : (
-          personas.map((p) => (
+          personas.map(p => (
             <div key={p.id} className="tarjeta">
               <strong>{p.nombre}</strong> ({p.tipo}) - {p.edad} años - {p.fecha}
               <p>{p.descripcion}</p>
@@ -125,4 +149,3 @@ export default function Home() {
     </div>
   );
 }
-
